@@ -1,13 +1,13 @@
-import AppCss from "./App.module.css";
+import "./App.css";
 import RepositoriesList from "./components/repositoriesList/RepositoriesList";
 
 function App() {
   return (
     <>
-      <p className={AppCss.paragraph}>MVST - Work in Progress!</p>
+      <p>MVST - Work in Progress!</p>
       <RepositoriesList>
-        <li>Hola</li>
-        <li>Adios</li>
+        <li>List Item 1</li>
+        <li>List Item 2</li>
       </RepositoriesList>
     </>
   );
