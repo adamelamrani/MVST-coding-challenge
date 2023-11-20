@@ -3,7 +3,7 @@ import "./App.css";
 function App() {
   return (
     <>
-      <p>Welcome page</p>
+      <p>MVST - Work in Progress!</p>
     </>
   );
 }
