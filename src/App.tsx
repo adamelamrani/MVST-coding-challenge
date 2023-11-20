@@ -17,7 +17,6 @@ const mockupRepositories: Repository[] = [
       "Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine.",
     html_url: "https://github.com/nodejs/node",
   },
-  // Add more mockup repositories as needed
 ];
 
 function App() {
