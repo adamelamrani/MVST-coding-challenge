@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { render } from "@testing-library/react";
 import RepositoryItem from "../components/repositoryItem/RepositoryItem";
+import RepositoryStyle from "../components/repositoryItem/repositoryItem.module.css";
 
 describe("Given a RepositoryItem component", () => {
   const repository = {
@@ -18,7 +19,7 @@ describe("Given a RepositoryItem component", () => {
   });
   it("Then it should have a repository-item class", () => {
     const li = container.querySelector("li");
-    expect(li).toHaveClass("repository-item");
+    expect(li).toHaveClass(RepositoryStyle.repositoryItem);
   });
   it("Then it should have a strong element with the repository name", () => {
     const strong = container.querySelector("strong");
