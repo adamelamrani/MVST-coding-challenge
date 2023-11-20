@@ -1,30 +1,27 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## MVST Coding challenge
 
-Currently, two official plugins are available:
+### Requirements
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- The application must be written using React ✅
+- Use typescript ✅
+- You are required to use git for versioning ✅
+- Feel free to use any additional plugin/module to help you get the task done more
+  effectively
+- Google Chrome is the testing browser
 
-## Expanding the ESLint configuration
+### Extra credits
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Things that are not mandatory, but we would like to see:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- +1 if you add storybook and divide the components
+- +1 if you write tests
+- +1 if deploy it somewhere (like [Netlify](https://www.netlify.com/) or [Heroku](https://www.heroku.com/))
+- +1 If your [code is documented](https://google.github.io/styleguide/jsguide.html#jsdoc)
+- +1 If you’re up for the challenge, use the [v4 API](https://docs.github.com/en/graphql), which is built using GraphQL.
+- +1 If you write a README that includes
+  - A short description about the project
+  - Instructions on how to run it
+  - Instructions on how to run the test suite
+  - Future improvements
