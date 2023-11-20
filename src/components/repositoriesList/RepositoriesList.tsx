@@ -9,7 +9,11 @@ const RepositoriesList: React.FC<RepositoriesListProps> = ({
 }: {
   children: React.ReactNode;
 }) => {
-  return <ul className={ListStyleCss.listStyle}>{children}</ul>;
+  return (
+    <ul data-testid="listStyle" className={ListStyleCss.listStyle}>
+      {children}
+    </ul>
+  );
 };
 
 export default RepositoriesList;
