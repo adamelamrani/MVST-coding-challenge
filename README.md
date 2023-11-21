@@ -22,7 +22,7 @@ Things that are not mandatory, but we would like to see:
 - Tests are done using Vitest and Jest DOM from Testing Library ✅
 - Webapp is deployed to Netlify: <a href="https://mvst-adams-challenge.netlify.app/">Link here</a> ✅
 - +1 If your [code is documented](https://google.github.io/styleguide/jsguide.html#jsdoc)
-- +1 If you’re up for the challenge, use the [v4 API](https://docs.github.com/en/graphql), which is built using GraphQL.
+- +1 If you’re up for the challenge, use the [v4 API](https://docs.github.com/en/graphql), which is built using GraphQL. ✅
 - +1 If you write a README that includes
   - A short description about the project ✅
   - Instructions on how to run it ✅
