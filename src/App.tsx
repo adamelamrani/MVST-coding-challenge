@@ -3,6 +3,10 @@ import RepositoriesList from "./components/repositoriesList/RepositoriesList";
 import { Repository } from "./components/repositoryItem/RepositoryInterface";
 import RepositoryItem from "./components/repositoryItem/RepositoryItem";
 import { useQuery, gql } from "@apollo/client";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { toastSelector } from "./utils/toasts/toastSelector";
+import { ToastTypeEnum } from "./utils/toasts/ToastTypeEnum";
 
 const mockupRepositories: Repository[] = [
   {
@@ -40,9 +44,15 @@ function App() {
     },
   });
 
-  if (loading) console.log("Loading...");
-  if (error) console.log(`Error! ${error.message}`);
-  console.log(data);
+  if (loading && !data) {
+    toastSelector(ToastTypeEnum.LOADING, null, null)();
+  }
+  if (error) {
+    toastSelector(ToastTypeEnum.ERROR, error, null)();
+  }
+  if (data) {
+    toastSelector(ToastTypeEnum.SUCCESS, null, null)();
+  }
 
   return (
     <>
@@ -54,6 +64,7 @@ function App() {
           );
         })}
       </RepositoriesList>
+      <ToastContainer />
     </>
   );
 }
