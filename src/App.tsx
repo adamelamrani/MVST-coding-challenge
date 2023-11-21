@@ -1,36 +1,32 @@
 import "./App.css";
 import RepositoriesList from "./components/repositoriesList/RepositoriesList";
-import { Repository } from "./components/repositoryItem/RepositoryInterface";
 import RepositoryItem from "./components/repositoryItem/RepositoryItem";
 import { useQuery, gql } from "@apollo/client";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toastSelector } from "./utils/toasts/toastSelector";
 import { ToastTypeEnum } from "./utils/toasts/ToastTypeEnum";
-
-const mockupRepositories: Repository[] = [
-  {
-    id: "1",
-    name: "React Repository",
-    description: "A JavaScript library for building user interfaces.",
-    html_url: "https://github.com/facebook/react",
-  },
-  {
-    id: "2",
-    name: "Node.js Repository",
-    description:
-      "Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine.",
-    html_url: "https://github.com/nodejs/node",
-  },
-];
+import { useState } from "react";
+import { useDebounce } from "use-debounce";
+import { Repository } from "./components/repositoryItem/RepositoryInterface";
 
 const GET_REPOSITORIES = gql`
-  query GetRepositories($number_of_repos: Int!) {
-    viewer {
-      name
-      repositories(last: $number_of_repos) {
+  query GetRepositories($username: String!) {
+    user(login: $username) {
+      repositories(first: 10, orderBy: { field: CREATED_AT, direction: DESC }) {
         nodes {
+          id
           name
+          description
+          url
+          stargazers {
+            totalCount
+          }
+          languages(first: 3) {
+            nodes {
+              name
+            }
+          }
         }
       }
     }
@@ -38,10 +34,13 @@ const GET_REPOSITORIES = gql`
 `;
 
 function App() {
+  const [username, setUsername] = useState<string | null>();
+  const debouncedUsername = useDebounce(username, 500);
   const { loading, error, data } = useQuery(GET_REPOSITORIES, {
     variables: {
-      number_of_repos: 3,
+      username: debouncedUsername[0],
     },
+    skip: !debouncedUsername[0],
   });
 
   if (loading && !data) {
@@ -53,15 +52,20 @@ function App() {
   if (data) {
     toastSelector(ToastTypeEnum.SUCCESS, null, null)();
   }
+  const repositories: Repository[] = data?.user.repositories.nodes;
 
   return (
     <>
       <p>MVST - Work in Progress!</p>
+      <input
+        type="text"
+        onChange={({ target }) => setUsername(target.value)}
+        placeholder="username"
+      />
+      {username && <h1>Repositories from {username}</h1>}
       <RepositoriesList>
-        {mockupRepositories.map((repository) => {
-          return (
-            <RepositoryItem key={repository.name} repository={repository} />
-          );
+        {repositories?.map((repository: Repository) => {
+          return <RepositoryItem key={repository.id} repository={repository} />;
         })}
       </RepositoriesList>
       <ToastContainer />

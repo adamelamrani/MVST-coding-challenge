@@ -6,7 +6,7 @@ const RepositoryItem = ({ repository }: RepositoryItemProps): JSX.Element => {
     <li className={RepositoryStyle.repositoryItem}>
       <p className={RepositoryStyle.repositoryParagraph}>
         <strong>{repository.name}</strong> {repository.description}
-        <a href={repository.html_url}>Access Repository</a>
+        <a href={repository.url}>Access Repository</a>
       </p>
     </li>
   );
