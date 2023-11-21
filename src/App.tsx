@@ -2,6 +2,7 @@ import "./App.css";
 import RepositoriesList from "./components/repositoriesList/RepositoriesList";
 import { Repository } from "./components/repositoryItem/RepositoryInterface";
 import RepositoryItem from "./components/repositoryItem/RepositoryItem";
+import { useQuery, gql } from "@apollo/client";
 
 const mockupRepositories: Repository[] = [
   {
@@ -19,7 +20,30 @@ const mockupRepositories: Repository[] = [
   },
 ];
 
+const GET_REPOSITORIES = gql`
+  query GetRepositories($number_of_repos: Int!) {
+    viewer {
+      name
+      repositories(last: $number_of_repos) {
+        nodes {
+          name
+        }
+      }
+    }
+  }
+`;
+
 function App() {
+  const { loading, error, data } = useQuery(GET_REPOSITORIES, {
+    variables: {
+      number_of_repos: 3,
+    },
+  });
+
+  if (loading) console.log("Loading...");
+  if (error) console.log(`Error! ${error.message}`);
+  console.log(data);
+
   return (
     <>
       <p>MVST - Work in Progress!</p>
