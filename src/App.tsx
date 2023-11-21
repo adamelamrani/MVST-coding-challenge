@@ -43,13 +43,10 @@ function App() {
     skip: !debouncedUsername[0],
   });
 
-  if (loading && !data) {
-    toastSelector(ToastTypeEnum.LOADING, null, null)();
-  }
   if (error) {
     toastSelector(ToastTypeEnum.ERROR, error, null)();
   }
-  if (data) {
+  if (data && username !== "") {
     toastSelector(ToastTypeEnum.SUCCESS, null, null)();
   }
   const repositories: Repository[] = data?.user.repositories.nodes;
@@ -63,10 +60,21 @@ function App() {
         placeholder="username"
       />
       {username && <h1>Repositories from {username}</h1>}
+      {!username && !data && !error && (
+        <p>
+          <strong>Type a username to search for repositories!</strong>
+        </p>
+      )}
       <RepositoriesList>
+        {loading && !data && (
+          <p>
+            <strong>Loading...</strong>
+          </p>
+        )}
         {repositories?.map((repository: Repository) => {
           return <RepositoryItem key={repository.id} repository={repository} />;
         })}
+        {error && <p>{error.message}</p>}
       </RepositoriesList>
       <ToastContainer />
     </>
