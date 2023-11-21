@@ -13,12 +13,14 @@ function App() {
   const [username, setUsername] = useState<string | null>();
   const debouncedUsername = useDebounce(username, 500);
   const params = window.location.search.replace("?query=", "");
+
   const { loading, error, data } = useCustomQuery(
     GET_REPOSITORIES,
     {
       username: debouncedUsername[0] || params,
     },
-    debouncedUsername[0] as string
+    debouncedUsername[0] as string,
+    !debouncedUsername[0] && !params
   );
 
   const repositories: Repository[] = data?.user.repositories.nodes;
