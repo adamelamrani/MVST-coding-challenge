@@ -1,4 +1,4 @@
-import "./App.css";
+import AppCss from "./styles/App.module.css";
 import RepositoriesList from "./components/repositoriesList/RepositoriesList";
 import RepositoryItem from "./components/repositoryItem/RepositoryItem";
 import { ToastContainer } from "react-toastify";
@@ -38,6 +38,7 @@ function App() {
     <>
       <p>MVST - Work in Progress!</p>
       <input
+        className={AppCss.inputStyle}
         type="text"
         onChange={({ target }) => setUsername(target.value)}
         placeholder="username"

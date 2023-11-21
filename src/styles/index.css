@@ -1,0 +1,27 @@
+html,
+body {
+  margin: 0;
+  box-sizing: border-box;
+  height: 100%;
+  background-color: #404258;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  --background-main-color-dark: #404258;
+  --background-main-color-semi-dark: #474e68;
+  --background-off-color-semi-light: #50577a;
+  --background-off-color-light: #6b728e;
+  --main-text-color: #e7f6f2;
+}
+
+p {
+  color: var(--main-text-color);
+}
