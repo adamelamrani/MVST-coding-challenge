@@ -2,14 +2,25 @@ import { describe, expect, it } from "vitest";
 import { render } from "@testing-library/react";
 import RepositoryItem from "../components/repositoryItem/RepositoryItem";
 import RepositoryStyle from "../components/repositoryItem/repositoryItem.module.css";
+import { Repository } from "../components/repositoryItem/RepositoryInterface";
+
+// MOCK UP DATA
+const repository: Repository = {
+  id: "1",
+  name: "test",
+  description: "test",
+  languages: [
+    {
+      name: "test",
+    },
+  ],
+  url: "test",
+  stargazers: {
+    totalCount: 1,
+  },
+};
 
 describe("Given a RepositoryItem component", () => {
-  const repository = {
-    id: "1",
-    name: "React Repository",
-    description: "A JavaScript library for building user interfaces.",
-    html_url: "https://github.com/facebook/react",
-  };
   const { container } = render(<RepositoryItem repository={repository} />);
   describe("When it is rendered", () => {
     it("Then it should render a li element", () => {
@@ -31,6 +42,6 @@ describe("Given a RepositoryItem component", () => {
   });
   it("Then it should have an a element with the repository url", () => {
     const a = container.querySelector("a");
-    expect(a).toHaveAttribute("href", repository.html_url);
+    expect(a).toHaveAttribute("href", repository.url);
   });
 });
