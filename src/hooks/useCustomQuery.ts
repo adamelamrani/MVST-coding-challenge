@@ -10,7 +10,13 @@ import { ToastTypeEnum } from "../utils/toasts/ToastTypeEnum";
  * @param variables Variables that we want to pass to the query
  * @param value The value that we want to use to trigger the query
  * @param skip (Optional) If we want to skip the query (default: false)
- * @returns
+ * @returns {loading, error, data} from the result of the query
+ *
+ * @example
+ * const { loading, error, data } = useCustomQuery(GET_ALL_USERS, {}, value);
+ * const { loading, error, data } = useCustomQuery(GET_ALL_USERS, {}, value, true);
+ * const { loading, error, data } = useCustomQuery(GET_ALL_USERS, { id: 1 }, value);
+ * const { loading, error, data } = useCustomQuery(GET_ALL_USERS, { id: 1 }, value, true);
  */
 
 const useCustomQuery = (

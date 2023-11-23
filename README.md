@@ -36,3 +36,12 @@ Things that are not mandatory, but we would like to see:
 - Run `yarn dev` to start the development server
 - Run `yarn test` to run the test suite
 - Run `yarn build` to build the project
+
+### Dependencies used
+
+- `@apollo/client` - User to fetch data from the GitHub GraphQL API
+- `@testing-library/jest-dom` - Used to test the DOM
+- `@testing-library/react` - Used to test React components
+- `vitest` - Used to run the test suite and generate coverage reports
+- `react-toastify` - Used to show toast messages and provide information to the user
+- `use-debounc` - Used to debounce the search input
