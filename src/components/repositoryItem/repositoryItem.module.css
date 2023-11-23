@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   padding: 1rem;
   height: 120px;
 }
@@ -41,4 +42,14 @@
 
 .repositoryItem:nth-child(odd) {
   background-color: var(--background-main-color-dark);
+}
+
+.itemHeading {
+  margin: 0;
+}
+
+.repositoryItemHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
