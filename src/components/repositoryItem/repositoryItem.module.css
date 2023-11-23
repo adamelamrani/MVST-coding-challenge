@@ -3,10 +3,42 @@
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  border-bottom: 1px solid gray;
+  height: 120px;
+}
+
+.anchorStyle {
+  text-decoration: none;
+  color: var(--text-main-color);
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+.anchorStyle:hover {
+  color: #bbe4e9;
+}
+
+.anchorStyle:hover::after {
+  width: 100%;
+  visibility: visible;
+}
+
+.anchorStyle::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: #bbe4e9;
+  visibility: hidden;
+  transition: all 0.2s ease-in-out;
 }
 
 .repositoryParagraph {
   display: flex;
   flex-direction: column;
+}
+
+.repositoryItem:nth-child(odd) {
+  background-color: var(--background-main-color-dark);
 }

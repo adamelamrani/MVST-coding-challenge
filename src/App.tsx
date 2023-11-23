@@ -32,22 +32,31 @@ function App() {
 
       window.history.replaceState({}, "", `${location.pathname}?${query}`);
     }
-  }, [debouncedUsername]);
+
+    if (username === "") {
+      window.history.replaceState({}, "", "/");
+    }
+  }, [debouncedUsername, username]);
 
   return (
     <>
-      <p>MVST - Work in Progress!</p>
+      <header className={AppCss.headerStyle}>
+        <h1 className={AppCss.mainHeading}>MVST - Code Challenge</h1>
+      </header>
+      {!username && !data && !error && (
+        <label className={AppCss.labelStyle} htmlFor="username-input">
+          <strong>Type a username to search for repositories!</strong>
+        </label>
+      )}
       <input
+        id="username-input"
         className={AppCss.inputStyle}
         type="text"
         onChange={({ target }) => setUsername(target.value)}
         placeholder="username"
       />
-      {username && <h1>Repositories from {debouncedUsername[0]}</h1>}
-      {!username && !data && !error && (
-        <p>
-          <strong>Type a username to search for repositories!</strong>
-        </p>
+      {data && (username || params) && (
+        <h2>Repositories from {username ? username : params}</h2>
       )}
       {loading && !data && (
         <p>
@@ -55,11 +64,19 @@ function App() {
         </p>
       )}
       {error && <p>{error.message}</p>}
-      <RepositoriesList>
-        {repositories?.map((repository: Repository) => {
-          return <RepositoryItem key={repository.id} repository={repository} />;
-        })}
-      </RepositoriesList>
+      {repositories && (
+        <RepositoriesList>
+          {repositories?.map((repository: Repository) => {
+            return (
+              <RepositoryItem key={repository.id} repository={repository} />
+            );
+          })}
+        </RepositoriesList>
+      )}
+      <footer className={AppCss.footerStyle}>
+        <button>Previous</button>
+        <button>Next</button>
+      </footer>
       <ToastContainer />
     </>
   );

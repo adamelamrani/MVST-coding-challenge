@@ -8,20 +8,27 @@ describe("Given an App component", () => {
     uri: "https://api.github.com/graphql",
     cache: new InMemoryCache(),
   });
-  const textContent = "MVST - Work in Progress!";
+  const headingText = "MVST - Code Challenge";
+  const paragraphText = "Type a username to search for repositories!";
   const { container } = render(
     <ApolloProvider client={client}>
       <App />
     </ApolloProvider>
   );
   describe("When it is rendered", () => {
-    it("It should contain a Paragraph element", () => {
+    it("It should contain a Paragraph element and an H1 elemnt", () => {
       const paragraph = container.querySelector("p");
+      const headingOne = container.querySelector("h1");
       expect(paragraph).toBeInTheDocument();
+      expect(headingOne).toBeInTheDocument();
     });
-    it("The text content of the paragraph should be 'MVST - Work in Progress!'", () => {
+    it("The text content of the paragraph should be 'Type a username to search for repositories!'", () => {
       const paragraph = container.querySelector("p");
-      expect(paragraph).toHaveTextContent(textContent);
+      expect(paragraph).toHaveTextContent(paragraphText);
+    });
+    it("The text content of the heading one should be 'MVST - Code Challenge'", () => {
+      const headingOne = container.querySelector("h1");
+      expect(headingOne).toHaveTextContent(headingText);
     });
   });
 });

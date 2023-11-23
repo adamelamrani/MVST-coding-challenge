@@ -2,18 +2,23 @@ html,
 body {
   margin: 0;
   box-sizing: border-box;
-  height: 100%;
   background-color: #404258;
+  height: 100%;
+  font-family: "Montserrat", sans-serif;
 }
 
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0 2rem;
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  color: var(--main-text-color);
+  background-color: var(--background-main-color-semi-dark);
+  box-shadow: 0 5px 15px 5px var(--background-off-color-light);
+  min-height: 100vh;
 
   --background-main-color-dark: #404258;
   --background-main-color-semi-dark: #474e68;
@@ -22,6 +27,12 @@ body {
   --main-text-color: #e7f6f2;
 }
 
-p {
-  color: var(--main-text-color);
+html {
+  background-color: var(--background-main-color-dark);
+}
+
+@media screen and (max-width: 768px) {
+  #root {
+    padding: 0 1rem;
+  }
 }
