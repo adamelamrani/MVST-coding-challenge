@@ -2,13 +2,12 @@ import { toast } from "react-toastify";
 import { ToastTypeEnum } from "./ToastTypeEnum";
 /**
  * This is a helper function to select the toast type.
- *   It receives  3 arguments:
- *      - type: ToastTypeEnum
- *      - error: Error | null
- *      - custom: string | null
- *      Error and custom are optional arguments.
- *   It returns a function that calls the toast function from react-toastify.
+ * @param type The type of toast to be displayed.
+ * @param error The error object to be displayed (optional)
+ * @param custom The custom message to be displayed (optional)
+ * Returns a function that calls the toast function from react-toastify.
  */
+
 export const toastSelector = (
   type: ToastTypeEnum,
   error?: Error | null,
