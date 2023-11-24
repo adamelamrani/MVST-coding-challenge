@@ -2,7 +2,6 @@ import { RepositoryItemProps } from "./RepositoryInterface";
 import RepositoryStyle from "./repositoryItem.module.css";
 
 const RepositoryItem = ({ repository }: RepositoryItemProps): JSX.Element => {
-  console.log(repository);
   return (
     <li className={RepositoryStyle.repositoryItem}>
       <header className={RepositoryStyle.repositoryItemHeader}>
