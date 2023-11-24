@@ -62,7 +62,6 @@ function App() {
       refetch(variables);
     }
   };
-  console.log(pagination);
 
   return (
     <>
