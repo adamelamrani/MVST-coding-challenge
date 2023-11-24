@@ -63,7 +63,6 @@ function App() {
     }
   };
 
-  console.log("rerender");
   return (
     <>
       <header className={AppCss.headerStyle}>

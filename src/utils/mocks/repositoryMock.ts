@@ -6,6 +6,7 @@ export const repositoryMockSuccess = [
       query: GET_REPOSITORIES,
       variables: {
         username: "adam",
+        first: 10,
       },
     },
     result: {
@@ -18,7 +19,9 @@ export const repositoryMockSuccess = [
                 name: "Repository For Testing",
                 description: "test",
                 url: "adamelamrani.com",
-                stargazerCount: 1,
+                stargazers: {
+                  stargazerCount: 1,
+                },
               },
             ],
           },
@@ -34,6 +37,7 @@ export const repositoryMockError = [
       query: GET_REPOSITORIES,
       variables: {
         username: "adam",
+        first: 10,
       },
     },
     error: new Error("Fetching data error"),
