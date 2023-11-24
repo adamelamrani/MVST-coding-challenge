@@ -11,6 +11,7 @@ import {
 } from "./components/repositoryItem/RepositoryInterface";
 import { GET_REPOSITORIES } from "./graphql/Repositories";
 import useCustomQuery from "./hooks/useCustomQuery";
+import FormInput from "./components/fromInput/FormInput";
 
 function App() {
   const [username, setUsername] = useState<string | null>();
@@ -68,30 +69,22 @@ function App() {
       <header className={AppCss.headerStyle}>
         <h1 className={AppCss.mainHeading}>MVST - Code Challenge</h1>
       </header>
-      <form className={AppCss.formStyle}>
-        {!username && !data && !error && (
-          <label className={AppCss.labelStyle} htmlFor="username-input">
-            <strong>Type a username to search for repositories!</strong>
-          </label>
-        )}
-        <input
-          id="username-input"
-          className={AppCss.inputStyle}
-          type="text"
-          onChange={({ target }) => setUsername(target.value)}
-          placeholder="username"
-        />
-      </form>
+      <FormInput
+        username={username as string}
+        onChange={setUsername}
+        data={data}
+        error={error}
+      />
       {data && (username || params) && (
         <h2>Repositories from {username ? username : params}</h2>
       )}
-      {loading && !data && (
-        <p>
-          <strong>Loading...</strong>
-        </p>
+      {loading && (
+        <div className={AppCss.loadingOverlay}>
+          <div className={AppCss.spinner}></div>
+        </div>
       )}
       {error && <p>{error.message}</p>}
-      {data?.user.repositories.nodes && (
+      {data?.user.repositories.nodes ? (
         <RepositoriesList>
           {data?.user.repositories.nodes?.map((repository: Repository) => {
             return (
@@ -99,6 +92,8 @@ function App() {
             );
           })}
         </RepositoriesList>
+      ) : (
+        <p>No repositories found</p>
       )}
       {!(!pagination?.hasNextPage && !pagination?.hasPreviousPage) && (
         <div className={AppCss.buttonsBlock}>
