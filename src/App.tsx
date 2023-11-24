@@ -5,25 +5,28 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
-import { Repository } from "./components/repositoryItem/RepositoryInterface";
+import {
+  PageInfo,
+  Repository,
+} from "./components/repositoryItem/RepositoryInterface";
 import { GET_REPOSITORIES } from "./graphql/Repositories";
 import useCustomQuery from "./hooks/useCustomQuery";
 
 function App() {
   const [username, setUsername] = useState<string | null>();
+  const [pagination, setPagination] = useState<PageInfo>();
   const debouncedUsername = useDebounce(username, 500);
   const params = window.location.search.replace("?query=", "");
 
-  const { loading, error, data } = useCustomQuery(
+  const { loading, error, data, refetch } = useCustomQuery(
     GET_REPOSITORIES,
     {
       username: debouncedUsername[0] || params,
+      first: 10,
     },
     debouncedUsername[0] as string,
     !debouncedUsername[0] && !params
   );
-
-  const repositories: Repository[] = data?.user.repositories.nodes;
 
   useEffect(() => {
     if (debouncedUsername[0]) {
@@ -37,6 +40,28 @@ function App() {
       window.history.replaceState({}, "", "/");
     }
   }, [debouncedUsername, username]);
+
+  useEffect(() => {
+    if (data) {
+      setPagination(data.user.repositories.pageInfo);
+    }
+  }, [data]);
+
+  const handlePagination = (direction: string) => {
+    if (
+      (direction === "next" && pagination?.hasNextPage) ||
+      (direction === "prev" && pagination?.hasPreviousPage)
+    ) {
+      const variables = {
+        username: debouncedUsername[0] || params,
+        first: direction === "next" ? 10 : undefined,
+        after: direction === "next" ? pagination?.endCursor : undefined,
+        last: direction === "prev" ? 10 : undefined,
+        before: direction === "prev" ? pagination?.startCursor : undefined,
+      };
+      refetch(variables);
+    }
+  };
 
   return (
     <>
@@ -64,19 +89,30 @@ function App() {
         </p>
       )}
       {error && <p>{error.message}</p>}
-      {repositories && (
+      {data?.user.repositories.nodes && (
         <RepositoriesList>
-          {repositories?.map((repository: Repository) => {
+          {data?.user.repositories.nodes?.map((repository: Repository) => {
             return (
               <RepositoryItem key={repository.id} repository={repository} />
             );
           })}
         </RepositoriesList>
       )}
-      <footer className={AppCss.footerStyle}>
-        <button>Previous</button>
-        <button>Next</button>
-      </footer>
+      <div className={AppCss.buttonsBlock}>
+        <button
+          disabled={!pagination?.hasPreviousPage}
+          onClick={() => handlePagination("prev")}
+        >
+          Previous
+        </button>
+        <button
+          disabled={!pagination?.hasNextPage}
+          onClick={() => handlePagination("next")}
+        >
+          Next
+        </button>
+      </div>
+      <footer className={AppCss.footerStyle}></footer>
       <ToastContainer />
     </>
   );

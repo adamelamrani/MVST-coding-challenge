@@ -64,6 +64,13 @@
   border-top: 1px solid var(--background-off-color-light);
 }
 
+.buttonsBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 @media screen and (max-width: 768px) {
   .inputStyle {
     width: 80%;

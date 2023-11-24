@@ -19,3 +19,10 @@ export interface Language {
 export interface RepositoryItemProps {
   repository: Repository;
 }
+
+export interface PageInfo {
+  endCursor: string;
+  startCursor: string;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+}

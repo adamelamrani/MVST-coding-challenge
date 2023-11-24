@@ -9,22 +9,22 @@ describe("Given an App component", () => {
     cache: new InMemoryCache(),
   });
   const headingText = "MVST - Code Challenge";
-  const paragraphText = "Type a username to search for repositories!";
+  const labelText = "Type a username to search for repositories!";
   const { container } = render(
     <ApolloProvider client={client}>
       <App />
     </ApolloProvider>
   );
   describe("When it is rendered", () => {
-    it("It should contain a Paragraph element and an H1 elemnt", () => {
-      const paragraph = container.querySelector("p");
+    it("It should contain a Label element and an H1 elemnt", () => {
+      const label = container.querySelector("label");
       const headingOne = container.querySelector("h1");
-      expect(paragraph).toBeInTheDocument();
+      expect(label).toBeInTheDocument();
       expect(headingOne).toBeInTheDocument();
     });
     it("The text content of the paragraph should be 'Type a username to search for repositories!'", () => {
-      const paragraph = container.querySelector("p");
-      expect(paragraph).toHaveTextContent(paragraphText);
+      const label = container.querySelector("label");
+      expect(label).toHaveTextContent(labelText);
     });
     it("The text content of the heading one should be 'MVST - Code Challenge'", () => {
       const headingOne = container.querySelector("h1");
