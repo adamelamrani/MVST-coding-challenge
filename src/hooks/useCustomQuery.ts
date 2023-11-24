@@ -6,8 +6,8 @@ import { ToastTypeEnum } from "../utils/toasts/ToastTypeEnum";
 /**
  * This custom hook is a generic hook that we can use to execute a query.
  *
- * @param query The query that we want to execute
- * @param variables Variables that we want to pass to the query
+ * @param query The query function that we want to execute
+ * @param variables Variables that we want to pass to the query. ie: { id: 1 }
  * @param value The value that we want to use to trigger the query
  * @param skip (Optional) If we want to skip the query (default: false)
  * @returns {loading, error, data} from the result of the query

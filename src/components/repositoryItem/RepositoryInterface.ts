@@ -2,11 +2,15 @@ export interface Repository {
   id: string;
   name: string;
   description: string;
-  languages: Language[];
+  languages: LanguageNodes;
   url: string;
   stargazers: {
     totalCount: number;
   };
+}
+
+interface LanguageNodes {
+  nodes: Language[];
 }
 
 export interface Language {

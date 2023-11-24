@@ -9,11 +9,13 @@ const repository: Repository = {
   id: "1",
   name: "test",
   description: "test",
-  languages: [
-    {
-      name: "test",
-    },
-  ],
+  languages: {
+    nodes: [
+      {
+        name: "test",
+      },
+    ],
+  },
   url: "test",
   stargazers: {
     totalCount: 1,
@@ -32,9 +34,9 @@ describe("Given a RepositoryItem component", () => {
     const li = container.querySelector("li");
     expect(li).toHaveClass(RepositoryStyle.repositoryItem);
   });
-  it("Then it should have a strong element with the repository name", () => {
-    const strong = container.querySelector("strong");
-    expect(strong).toHaveTextContent(repository.name);
+  it("Then it should have an h3 element with the repository name", () => {
+    const headingThree = container.querySelector("h3");
+    expect(headingThree).toHaveTextContent(repository.name);
   });
   it("Then it should have a p element with the repository description", () => {
     const p = container.querySelector("p");
