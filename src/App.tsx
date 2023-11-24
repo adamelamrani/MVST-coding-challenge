@@ -62,24 +62,27 @@ function App() {
       refetch(variables);
     }
   };
+  console.log(pagination);
 
   return (
     <>
       <header className={AppCss.headerStyle}>
         <h1 className={AppCss.mainHeading}>MVST - Code Challenge</h1>
       </header>
-      {!username && !data && !error && (
-        <label className={AppCss.labelStyle} htmlFor="username-input">
-          <strong>Type a username to search for repositories!</strong>
-        </label>
-      )}
-      <input
-        id="username-input"
-        className={AppCss.inputStyle}
-        type="text"
-        onChange={({ target }) => setUsername(target.value)}
-        placeholder="username"
-      />
+      <form className={AppCss.formStyle}>
+        {!username && !data && !error && (
+          <label className={AppCss.labelStyle} htmlFor="username-input">
+            <strong>Type a username to search for repositories!</strong>
+          </label>
+        )}
+        <input
+          id="username-input"
+          className={AppCss.inputStyle}
+          type="text"
+          onChange={({ target }) => setUsername(target.value)}
+          placeholder="username"
+        />
+      </form>
       {data && (username || params) && (
         <h2>Repositories from {username ? username : params}</h2>
       )}
@@ -98,20 +101,22 @@ function App() {
           })}
         </RepositoriesList>
       )}
-      <div className={AppCss.buttonsBlock}>
-        <button
-          disabled={!pagination?.hasPreviousPage}
-          onClick={() => handlePagination("prev")}
-        >
-          Previous
-        </button>
-        <button
-          disabled={!pagination?.hasNextPage}
-          onClick={() => handlePagination("next")}
-        >
-          Next
-        </button>
-      </div>
+      {!(!pagination?.hasNextPage && !pagination?.hasPreviousPage) && (
+        <div className={AppCss.buttonsBlock}>
+          <button
+            disabled={!pagination?.hasPreviousPage}
+            onClick={() => handlePagination("prev")}
+          >
+            Previous
+          </button>
+          <button
+            disabled={!pagination?.hasNextPage}
+            onClick={() => handlePagination("next")}
+          >
+            Next
+          </button>
+        </div>
+      )}
       <footer className={AppCss.footerStyle}></footer>
       <ToastContainer />
     </>
