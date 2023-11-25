@@ -2,6 +2,7 @@
 import { DocumentNode, useQuery } from "@apollo/client";
 import { toastSelector } from "../utils/toasts/toastSelector";
 import { ToastTypeEnum } from "../utils/toasts/ToastTypeEnum";
+import { useState } from "react";
 
 /**
  * This custom hook is a generic hook that we can use to execute a query.
@@ -23,17 +24,19 @@ const useCustomQuery = (
   query: DocumentNode,
   variables: any,
   value: string,
-  skip?: any
+  skip?: boolean
 ) => {
+  const [successToastShown, setSuccessToastShown] = useState<boolean>(false);
   const { loading, error, data, refetch } = useQuery(query, {
     variables,
     skip: skip,
   });
 
-  if (error) {
+  if (error?.networkError) {
     toastSelector(ToastTypeEnum.ERROR, error, null)();
   }
-  if (data && value !== "") {
+  if (data && value !== "" && !successToastShown) {
+    setSuccessToastShown(true);
     toastSelector(ToastTypeEnum.SUCCESS, null, null)();
   }
 

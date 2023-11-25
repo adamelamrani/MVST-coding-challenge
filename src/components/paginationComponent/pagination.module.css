@@ -1,0 +1,41 @@
+.buttonsBlock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+}
+
+.buttonStyle {
+  background-color: var(--background-off-color-light);
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  color: var(--text-main-color);
+  font-size: 16px;
+  font-weight: 500;
+  width: 40%;
+  transition: all 0.2s ease-in-out;
+  padding: 0 10px;
+  margin-bottom: 2rem;
+}
+
+.buttonStyle:hover {
+  box-shadow: 0px 0px 9px 3px #bbe4e9;
+}
+
+.buttonStyle:disabled {
+  background-color: var(--background-off-color-light);
+  color: var(--text-main-color);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.buttonStyle:disabled:hover {
+  box-shadow: none;
+}
+
+@media screen and (max-width: 768px) {
+  .buttonsBlock {
+    width: 80%;
+  }
+}
