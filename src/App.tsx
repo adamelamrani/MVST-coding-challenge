@@ -62,6 +62,7 @@ function App() {
         before: direction === "prev" ? pagination?.startCursor : undefined,
       };
       refetch(variables);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
