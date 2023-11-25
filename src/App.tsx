@@ -85,7 +85,7 @@ function App() {
         </div>
       )}
       {error && <p>{error.message}</p>}
-      {data?.user.repositories.nodes ? (
+      {data?.user.repositories.nodes && !error && (
         <RepositoriesList>
           {data?.user.repositories.nodes?.map((repository: Repository) => {
             return (
@@ -93,14 +93,17 @@ function App() {
             );
           })}
         </RepositoriesList>
-      ) : (
+      )}
+      {data?.user.repositories.nodes?.length === 0 && !error && (
         <p>No repositories found</p>
       )}
-      <PaginationComponent
-        handlePagination={handlePagination}
-        canNextPage={pagination?.hasNextPage}
-        canPreviousPage={pagination?.hasPreviousPage}
-      />
+      {data && (
+        <PaginationComponent
+          handlePagination={handlePagination}
+          canNextPage={pagination?.hasNextPage}
+          canPreviousPage={pagination?.hasPreviousPage}
+        />
+      )}
       <footer className={AppCss.footerStyle}></footer>
       <ToastContainer />
     </>
