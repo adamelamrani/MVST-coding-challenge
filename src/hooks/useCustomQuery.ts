@@ -32,10 +32,7 @@ const useCustomQuery = (
     skip: skip,
   });
 
-  console.log("HAY LOADING?: ", loading);
-
   if (error?.networkError) {
-    console.log(error);
     toastSelector(ToastTypeEnum.ERROR, error, null)();
   }
   if (data && value !== "" && !successToastShown) {
