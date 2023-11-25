@@ -1,17 +1,19 @@
+import { Repository } from "../repositoryItem/RepositoryInterface";
+import RepositoryItem from "../repositoryItem/RepositoryItem";
 import ListStyleCss from "./repositoriesList.module.css";
 
 interface RepositoriesListProps {
-  children: React.ReactNode;
+  repositories: Repository[];
 }
 
 const RepositoriesList: React.FC<RepositoriesListProps> = ({
-  children,
-}: {
-  children: React.ReactNode;
+  repositories,
 }) => {
   return (
     <ul data-testid="listStyle" className={ListStyleCss.listStyle}>
-      {children}
+      {repositories?.map((repository: Repository) => {
+        return <RepositoryItem key={repository.id} repository={repository} />;
+      })}
     </ul>
   );
 };
