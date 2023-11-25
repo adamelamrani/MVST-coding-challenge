@@ -31,6 +31,27 @@ export const repositoryMockSuccess = [
   },
 ];
 
+export const repositoryMockSuccessNoValue = [
+  {
+    request: {
+      query: GET_REPOSITORIES,
+      variables: {
+        username: "adam",
+        first: 10,
+      },
+    },
+    result: {
+      data: {
+        user: {
+          repositories: {
+            nodes: [],
+          },
+        },
+      },
+    },
+  },
+];
+
 export const repositoryMockError = [
   {
     request: {
