@@ -12,6 +12,7 @@ import {
 import { GET_REPOSITORIES } from "./graphql/Repositories";
 import useCustomQuery from "./hooks/useCustomQuery";
 import FormInput from "./components/fromInput/FormInput";
+import PaginationComponent from "./components/paginationComponent/PaginationComponent";
 
 function App() {
   const [username, setUsername] = useState<string | null>();
@@ -95,22 +96,11 @@ function App() {
       ) : (
         <p>No repositories found</p>
       )}
-      {!(!pagination?.hasNextPage && !pagination?.hasPreviousPage) && (
-        <div className={AppCss.buttonsBlock}>
-          <button
-            disabled={!pagination?.hasPreviousPage}
-            onClick={() => handlePagination("prev")}
-          >
-            Previous
-          </button>
-          <button
-            disabled={!pagination?.hasNextPage}
-            onClick={() => handlePagination("next")}
-          >
-            Next
-          </button>
-        </div>
-      )}
+      <PaginationComponent
+        handlePagination={handlePagination}
+        canNextPage={pagination?.hasNextPage}
+        canPreviousPage={pagination?.hasPreviousPage}
+      />
       <footer className={AppCss.footerStyle}></footer>
       <ToastContainer />
     </>

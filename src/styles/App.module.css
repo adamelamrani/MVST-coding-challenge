@@ -27,13 +27,6 @@
   border-top: 1px solid var(--background-off-color-light);
 }
 
-.buttonsBlock {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
 .loadingOverlay {
   position: fixed;
   top: 0;
