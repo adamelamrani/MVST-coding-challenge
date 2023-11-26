@@ -35,6 +35,7 @@ export const GET_REPOSITORIES: DocumentNode = gql`
             nodes {
               name
               color
+              id
             }
           }
         }

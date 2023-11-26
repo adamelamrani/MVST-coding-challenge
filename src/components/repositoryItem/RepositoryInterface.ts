@@ -16,6 +16,7 @@ interface LanguageNodes {
 export interface Language {
   name: string;
   color: string;
+  id: string;
 }
 export interface RepositoryItemProps {
   repository: Repository;

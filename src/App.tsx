@@ -23,6 +23,7 @@ function App() {
   const query = searchParams.get("query") || "";
   const language = searchParams.get("language") || "";
   const repo = searchParams.get("repo") || "";
+  console.log(createGithubQuery(query, language, repo));
   const { loading, error, data, refetch } = useCustomQuery(
     GET_REPOSITORIES,
     {
@@ -31,10 +32,10 @@ function App() {
     },
     !query
   );
-  console.log(repo);
+
   const { pageInfo } = data?.search || {};
   const { nodes: repos } = data?.search || [];
-  console.log(pageInfo);
+
   const handlePagination = (direction: string) => {
     if (
       (direction === "next" && pageInfo?.hasNextPage) ||
@@ -51,13 +52,13 @@ function App() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
-
+  console.log(pageInfo);
   return (
     <>
       <header className={styles.headerStyle}>
         <h1 className={styles.mainHeading}>MVST - Code Challenge</h1>
       </header>
-      <FormInput query={query as string} data={data} error={error} />
+      <FormInput query={query as string} data={data} />
       {data && query && <h2>Repositories from {query}</h2>}
       <Results repositories={repos} error={error} loading={loading} />
       {data && (

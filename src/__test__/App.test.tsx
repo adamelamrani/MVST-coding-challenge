@@ -15,7 +15,7 @@ describe("Given an App component", () => {
     </MockedProvider>
   );
   describe("When it is rendered", () => {
-    it.only("It should contain a Label element and an H1 elemnt", () => {
+    it("It should contain a Label element and an H1 elemnt", () => {
       const headingOne = screen.getByRole("heading");
       const label = screen.getByRole("textbox");
       expect(headingOne).toBeInTheDocument();

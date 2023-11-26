@@ -11,8 +11,13 @@ const RepositoriesList: React.FC<RepositoriesListProps> = ({
 }) => {
   return (
     <ul data-testid="listStyle" className={styles.listStyle}>
-      {repositories?.map((repository: Repository) => {
-        return <RepositoryItem key={repository.id} repository={repository} />;
+      {repositories?.map((repository: Repository, index: number) => {
+        return (
+          <RepositoryItem
+            key={`${index}_${repository.id}`}
+            repository={repository}
+          />
+        );
       })}
     </ul>
   );

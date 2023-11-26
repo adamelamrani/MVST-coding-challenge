@@ -3,6 +3,7 @@ import styles from "./results.module.css";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Results = ({ repositories, error, loading }: any) => {
+  console.log("REPOS: ", repositories);
   if (error) {
     return <p>{error.message}</p>;
   }

@@ -29,7 +29,10 @@ const RepositoryItem = ({ repository }: RepositoryItemProps): JSX.Element => {
         {repository?.languages?.nodes.length > 0 && (
           <ul className={styles.languagesList}>
             {repository.languages.nodes.map((language) => (
-              <li className={styles.language} key={language.name}>
+              <li
+                className={styles.language}
+                key={`${language.id}_${repository.id}`}
+              >
                 {language.name}
               </li>
             ))}

@@ -65,7 +65,9 @@ const FormInput: React.FC<FormInputProps> = ({ query, data }) => {
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     navigate({
-      search: `?query=${formData.username}&repo=${formData.repoName}`,
+      search: `?query=${formData.username}${
+        formData.repoName && `&repo=${formData.repoName}`
+      }`,
     });
   };
 
@@ -82,6 +84,8 @@ const FormInput: React.FC<FormInputProps> = ({ query, data }) => {
 
         <input
           id="userdata-input"
+          name="userdata-input"
+          data-testid="input-test"
           className={styles.inputStyle}
           type="text"
           onChange={({ target }) =>
