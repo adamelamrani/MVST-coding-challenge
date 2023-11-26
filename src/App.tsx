@@ -24,6 +24,7 @@ function App() {
   );
 
   const { pageInfo } = data?.user?.repositories || {};
+  const { nodes: repos } = data?.user?.repositories || [];
 
   const handlePagination = (direction: string) => {
     if (
@@ -56,11 +57,7 @@ function App() {
       {data && (username || params) && (
         <h2>Repositories from {username ? username : params}</h2>
       )}
-      <Results
-        repositories={data?.user.repositories.nodes}
-        error={error}
-        loading={loading}
-      />
+      <Results repositories={repos} error={error} loading={loading} />
       {data && (
         <PaginationComponent
           handlePagination={handlePagination}

@@ -1,11 +1,16 @@
 import { describe, it, expect } from "vitest";
 import { render } from "@testing-library/react";
 import App from "../App";
+import { MockedProvider } from "@apollo/client/testing";
 
 describe("Given an App component", () => {
   const headingText = "MVST - Code Challenge";
   const labelText = "Type a username to search for repositories!";
-  const { container } = render(<App />);
+  const { container } = render(
+    <MockedProvider>
+      <App />
+    </MockedProvider>
+  );
   describe("When it is rendered", () => {
     it("It should contain a Label element and an H1 elemnt", () => {
       const label = container.querySelector("label");

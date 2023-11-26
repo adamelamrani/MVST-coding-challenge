@@ -26,3 +26,12 @@ export interface PageInfo {
   hasPreviousPage: boolean;
   hasNextPage: boolean;
 }
+
+export interface UserData {
+  user: {
+    repositories: {
+      nodes: Repository[];
+      pageInfo: PageInfo;
+    };
+  };
+}

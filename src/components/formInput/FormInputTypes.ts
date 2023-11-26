@@ -1,9 +1,9 @@
 import { ApolloError } from "@apollo/client";
-import { Repository } from "../repositoryItem/RepositoryInterface";
+import { UserData } from "../repositoryItem/RepositoryInterface";
 
 export interface FormInputProps {
   username: string;
-  data: Repository[];
+  data: UserData;
   error: ApolloError | undefined;
   onChange: (event: string) => void;
 }
