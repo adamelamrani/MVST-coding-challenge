@@ -56,3 +56,5 @@ Things that are not mandatory, but we would like to see:
   - Add a load more button to load more results instead of having to click on the next / previous buttons.
 - Add storybook
   - Add storybook to the project to have a better overview of the components.
+- Add more information to the repository card
+  - Add colouring such as GitHub does to the repository card languages.

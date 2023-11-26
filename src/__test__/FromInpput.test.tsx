@@ -17,6 +17,7 @@ const data: UserData = {
             {
               name: "JavaScript",
               color: "#f1e05a",
+              id: "MDg6TGFuZ3VhZ2UxMDM=",
             },
           ],
         },
