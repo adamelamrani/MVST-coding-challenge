@@ -45,3 +45,16 @@ Things that are not mandatory, but we would like to see:
 - `vitest` - Used to run the test suite and generate coverage reports
 - `react-toastify` - Used to show toast messages and provide information to the user
 - `use-debounc` - Used to debounce the search input
+
+### Future improvements
+
+- Add more tests
+  - Add tests to cover the pagination and filters by language and repo name and reach 100% coverage
+- Add more filters
+  - Add more filters to the search results, like the number of stars, forks, etc.
+- Add load more button instead of previous / next, or pagination with query params page
+  - Add a load more button to load more results instead of having to click on the next / previous buttons.
+- Add storybook
+  - Add storybook to the project to have a better overview of the components.
+- Add more information to the repository card
+  - Add colouring such as GitHub does to the repository card languages.

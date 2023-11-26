@@ -13,6 +13,8 @@ const repository: Repository = {
     nodes: [
       {
         name: "test",
+        color: "#fff",
+        id: "1",
       },
     ],
   },

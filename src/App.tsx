@@ -1,65 +1,51 @@
-import AppCss from "./styles/App.module.css";
-import RepositoriesList from "./components/repositoriesList/RepositoriesList";
-import RepositoryItem from "./components/repositoryItem/RepositoryItem";
+import styles from "./styles/App.module.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect, useState } from "react";
-import { useDebounce } from "use-debounce";
-import {
-  PageInfo,
-  Repository,
-} from "./components/repositoryItem/RepositoryInterface";
-import { GET_REPOSITORIES } from "./graphql/Repositories";
 import useCustomQuery from "./hooks/useCustomQuery";
-import FormInput from "./components/fromInput/FormInput";
+import FormInput from "./components/formInput/FormInput";
 import PaginationComponent from "./components/paginationComponent/PaginationComponent";
+import Results from "./components/results/Results";
+import { useSearchParams } from "react-router-dom";
+import { GET_REPOSITORIES } from "./graphql/Repositories";
+
+const createGithubQuery = (user: string, language?: string, repo?: string) => {
+  if (repo) {
+    return `repo:${user}/${repo}`;
+  }
+  if (language) {
+    return `user:${user} language:${language}`;
+  }
+  return `user:${user}`;
+};
 
 function App() {
-  const [username, setUsername] = useState<string | null>();
-  const [pagination, setPagination] = useState<PageInfo>();
-  const debouncedUsername = useDebounce(username, 500);
-  const params = window.location.search.replace("?query=", "");
-
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("query") || "";
+  const language = searchParams.get("language") || "";
+  const repo = searchParams.get("repo") || "";
   const { loading, error, data, refetch } = useCustomQuery(
     GET_REPOSITORIES,
     {
-      username: debouncedUsername[0] || params,
+      query: createGithubQuery(query, language, repo),
       first: 10,
     },
-    debouncedUsername[0] as string,
-    !debouncedUsername[0] && !params
+    !query
   );
 
-  useEffect(() => {
-    if (debouncedUsername[0]) {
-      const query = new URLSearchParams(window.location.search);
-      query.set("query", encodeURIComponent(debouncedUsername[0]));
-
-      window.history.replaceState({}, "", `${location.pathname}?${query}`);
-    }
-
-    if (username === "") {
-      window.history.replaceState({}, "", "/");
-    }
-  }, [debouncedUsername, username]);
-
-  useEffect(() => {
-    if (data) {
-      setPagination(data.user.repositories.pageInfo);
-    }
-  }, [data]);
+  const { pageInfo } = data?.search || {};
+  const { nodes: repos } = data?.search || [];
 
   const handlePagination = (direction: string) => {
     if (
-      (direction === "next" && pagination?.hasNextPage) ||
-      (direction === "prev" && pagination?.hasPreviousPage)
+      (direction === "next" && pageInfo?.hasNextPage) ||
+      (direction === "prev" && pageInfo?.hasPreviousPage)
     ) {
       const variables = {
-        username: debouncedUsername[0] || params,
+        username: query,
         first: direction === "next" ? 10 : undefined,
-        after: direction === "next" ? pagination?.endCursor : undefined,
+        after: direction === "next" ? pageInfo?.endCursor : undefined,
         last: direction === "prev" ? 10 : undefined,
-        before: direction === "prev" ? pagination?.startCursor : undefined,
+        before: direction === "prev" ? pageInfo?.startCursor : undefined,
       };
       refetch(variables);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -68,44 +54,20 @@ function App() {
 
   return (
     <>
-      <header className={AppCss.headerStyle}>
-        <h1 className={AppCss.mainHeading}>MVST - Code Challenge</h1>
+      <header className={styles.headerStyle}>
+        <h1 className={styles.mainHeading}>MVST - Code Challenge</h1>
       </header>
-      <FormInput
-        username={username as string}
-        onChange={setUsername}
-        data={data}
-        error={error}
-      />
-      {data && (username || params) && (
-        <h2>Repositories from {username ? username : params}</h2>
-      )}
-      {loading && (
-        <div className={AppCss.loadingOverlay}>
-          <div className={AppCss.spinner}></div>
-        </div>
-      )}
-      {error && <p>{error.message}</p>}
-      {data?.user.repositories.nodes && !error && (
-        <RepositoriesList>
-          {data?.user.repositories.nodes?.map((repository: Repository) => {
-            return (
-              <RepositoryItem key={repository.id} repository={repository} />
-            );
-          })}
-        </RepositoriesList>
-      )}
-      {data?.user.repositories.nodes?.length === 0 && !error && (
-        <p>No repositories found</p>
-      )}
+      <FormInput query={query as string} data={data} />
+      {data && query && <h2>Repositories from {query}</h2>}
+      <Results repositories={repos} error={error} loading={loading} />
       {data && (
         <PaginationComponent
           handlePagination={handlePagination}
-          canNextPage={pagination?.hasNextPage}
-          canPreviousPage={pagination?.hasPreviousPage}
+          canNextPage={pageInfo?.hasNextPage}
+          canPreviousPage={pageInfo?.hasPreviousPage}
         />
       )}
-      <footer className={AppCss.footerStyle}></footer>
+      <footer className={styles.footerStyle}></footer>
       <ToastContainer />
     </>
   );

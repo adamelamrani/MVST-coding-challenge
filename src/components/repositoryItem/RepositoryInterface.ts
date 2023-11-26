@@ -15,6 +15,8 @@ interface LanguageNodes {
 
 export interface Language {
   name: string;
+  color: string;
+  id: string;
 }
 export interface RepositoryItemProps {
   repository: Repository;
@@ -25,4 +27,11 @@ export interface PageInfo {
   startCursor: string;
   hasPreviousPage: boolean;
   hasNextPage: boolean;
+}
+
+export interface UserData {
+  search: {
+    nodes: Repository[];
+    pageInfo: PageInfo;
+  };
 }
