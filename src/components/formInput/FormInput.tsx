@@ -85,7 +85,7 @@ const FormInput: React.FC<FormInputProps> = ({ query, data }) => {
         <input
           id="userdata-input"
           name="userdata-input"
-          data-testid="input-test"
+          data-testid="input-test-username"
           className={styles.inputStyle}
           type="text"
           onChange={({ target }) =>

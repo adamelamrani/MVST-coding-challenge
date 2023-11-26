@@ -36,7 +36,7 @@ describe("Given an App component rendered with mocked custom query", () => {
   describe("When the user types a username that doesn't exists", () => {
     it("It should render with the error message", async () => {
       const errorMessage = "Fetching data error";
-      const { container } = render(
+      render(
         <MockedProvider mocks={repositoryMockError} addTypename={false}>
           <BrowserRouter>
             <App />
@@ -44,8 +44,8 @@ describe("Given an App component rendered with mocked custom query", () => {
         </MockedProvider>
       );
 
-      const input = container.querySelector("input");
-      fireEvent.change(input as HTMLInputElement, {
+      const input = screen.getAllByRole("textbox");
+      fireEvent.change(input[0], {
         target: { value: "adam" },
       });
       expect(await screen.findByText(errorMessage)).toBeInTheDocument();
@@ -55,7 +55,7 @@ describe("Given an App component rendered with mocked custom query", () => {
   describe("When the user searches for a username that exists but doesn't have any repositories", () => {
     it("It should render with the text 'No repositories found'", async () => {
       const noRepositoriesText = "No repositories found";
-      const { container } = render(
+      render(
         <MockedProvider
           mocks={repositoryMockSuccessNoValue}
           addTypename={false}
@@ -66,8 +66,8 @@ describe("Given an App component rendered with mocked custom query", () => {
         </MockedProvider>
       );
 
-      const input = container.querySelector("input");
-      fireEvent.change(input as HTMLInputElement, {
+      const input = screen.getAllByRole("textbox");
+      fireEvent.change(input[0], {
         target: { value: "adam" },
       });
       expect(await screen.findByText(noRepositoriesText)).toBeInTheDocument();
