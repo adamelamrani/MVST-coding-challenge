@@ -1,26 +1,29 @@
 import styles from "./styles/App.module.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
 import { GET_REPOSITORIES } from "./graphql/Repositories";
 import useCustomQuery from "./hooks/useCustomQuery";
 import FormInput from "./components/formInput/FormInput";
 import PaginationComponent from "./components/paginationComponent/PaginationComponent";
 import Results from "./components/results/Results";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function App() {
-  const [username, setUsername] = useState<string | null>();
-  const debouncedUsername = useDebounce(username, 500);
-  const params = window.location.search.replace("?query=", "");
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const [username, setUsername] = useState<string>("");
+  const [debouncedUsername] = useDebounce(username, 500);
+  const query = searchParams.get("query") || "";
 
   const { loading, error, data, refetch } = useCustomQuery(
     GET_REPOSITORIES,
     {
-      username: debouncedUsername[0] || params,
+      username: query,
       first: 10,
     },
-    !debouncedUsername[0] && !params
+    !query
   );
 
   const { pageInfo } = data?.user?.repositories || {};
@@ -32,7 +35,7 @@ function App() {
       (direction === "prev" && pageInfo?.hasPreviousPage)
     ) {
       const variables = {
-        username: debouncedUsername[0] || params,
+        username: debouncedUsername || query,
         first: direction === "next" ? 10 : undefined,
         after: direction === "next" ? pageInfo?.endCursor : undefined,
         last: direction === "prev" ? 10 : undefined,
@@ -43,6 +46,24 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    if (query && !debouncedUsername) {
+      navigate({ search: `?query=${query}` });
+      return;
+    }
+    if (debouncedUsername !== query) {
+      navigate({ search: `?query=${debouncedUsername}` });
+      return;
+    }
+    if (debouncedUsername === "" && query !== "") {
+      navigate({ search: "" });
+    }
+  }, [debouncedUsername]);
+
+  useEffect(() => {
+    setUsername(query);
+  }, [query]);
+  console.log({ debouncedUsername, query, username });
   return (
     <>
       <header className={styles.headerStyle}>
@@ -54,8 +75,8 @@ function App() {
         data={data}
         error={error}
       />
-      {data && (username || params) && (
-        <h2>Repositories from {username ? username : params}</h2>
+      {data && (username || query) && (
+        <h2>Repositories from {username ? username : query}</h2>
       )}
       <Results repositories={repos} error={error} loading={loading} />
       {data && (

@@ -38,6 +38,7 @@ const FormInput: React.FC<FormInputProps> = ({
           className={styles.inputStyle}
           type="text"
           onChange={({ target }) => onChange(target.value)}
+          value={username || ""}
           placeholder="username"
         />
         <label htmlFor="multiSelect">Select a language:</label>
