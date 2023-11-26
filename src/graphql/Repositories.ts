@@ -2,27 +2,28 @@ import { gql, DocumentNode } from "@apollo/client";
 
 export const GET_REPOSITORIES: DocumentNode = gql`
   query GetRepositories(
-    $username: String!
     $first: Int
-    $after: String
     $last: Int
+    $query: String!
+    $after: String
     $before: String
   ) {
-    user(login: $username) {
-      repositories(
-        first: $first
-        after: $after
-        last: $last
-        before: $before
-        orderBy: { field: CREATED_AT, direction: DESC }
-      ) {
-        pageInfo {
-          endCursor
-          startCursor
-          hasPreviousPage
-          hasNextPage
-        }
-        nodes {
+    search(
+      query: $query
+      type: REPOSITORY
+      first: $first
+      last: $last
+      after: $after
+      before: $before
+    ) {
+      pageInfo {
+        endCursor
+        startCursor
+        hasPreviousPage
+        hasNextPage
+      }
+      nodes {
+        ... on Repository {
           id
           name
           description
@@ -33,6 +34,7 @@ export const GET_REPOSITORIES: DocumentNode = gql`
           languages(first: 3) {
             nodes {
               name
+              color
             }
           }
         }

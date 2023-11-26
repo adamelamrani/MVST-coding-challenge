@@ -1,5 +1,5 @@
 import { PaginationComponentProps } from "./PaginationComponentsTypes";
-import PaginationCss from "./pagination.module.css";
+import styles from "./pagination.module.css";
 
 const PaginationComponent: React.FC<PaginationComponentProps> = ({
   canNextPage,
@@ -12,16 +12,16 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({
 
   return (
     <>
-      <div className={PaginationCss.buttonsBlock}>
+      <div className={styles.buttonsBlock}>
         <button
-          className={PaginationCss.buttonStyle}
+          className={styles.buttonStyle}
           disabled={!canPreviousPage}
           onClick={() => handlePagination("prev")}
         >
           Previous
         </button>
         <button
-          className={PaginationCss.buttonStyle}
+          className={styles.buttonStyle}
           disabled={!canNextPage}
           onClick={() => handlePagination("next")}
         >
