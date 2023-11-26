@@ -1,29 +1,32 @@
 import { describe, it, expect } from "vitest";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import App from "../App";
 import { MockedProvider } from "@apollo/client/testing";
+import { BrowserRouter } from "react-router-dom";
 
 describe("Given an App component", () => {
   const headingText = "MVST - Code Challenge";
   const labelText = "Type a username to search for repositories!";
-  const { container } = render(
-    <MockedProvider>
-      <App />
+  render(
+    <MockedProvider mocks={[]}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </MockedProvider>
   );
   describe("When it is rendered", () => {
-    it("It should contain a Label element and an H1 elemnt", () => {
-      const label = container.querySelector("label");
-      const headingOne = container.querySelector("h1");
-      expect(label).toBeInTheDocument();
+    it.only("It should contain a Label element and an H1 elemnt", () => {
+      const headingOne = screen.getByRole("heading");
+      const label = screen.getByRole("textbox");
       expect(headingOne).toBeInTheDocument();
+      expect(label).toBeInTheDocument;
     });
-    it("The text content of the paragraph should be 'Type a username to search for repositories!'", () => {
-      const label = container.querySelector("label");
+    it("The text content of the label should be 'Type a username to search for repositories!'", () => {
+      const label = screen.getByTestId("label-text");
       expect(label).toHaveTextContent(labelText);
     });
     it("The text content of the heading one should be 'MVST - Code Challenge'", () => {
-      const headingOne = container.querySelector("h1");
+      const headingOne = screen.getByRole("heading");
       expect(headingOne).toHaveTextContent(headingText);
     });
   });

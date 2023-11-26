@@ -5,7 +5,7 @@ import styles from "./formInput.module.css";
 import { useDebounce } from "use-debounce";
 import { useNavigate } from "react-router-dom";
 
-const FormInput: React.FC<FormInputProps> = ({ query, data, error }) => {
+const FormInput: React.FC<FormInputProps> = ({ query, data }) => {
   const [formData, setFormData] = useState<{
     username: string;
     language: string;
@@ -72,11 +72,14 @@ const FormInput: React.FC<FormInputProps> = ({ query, data, error }) => {
   return (
     <>
       <form className={styles.formStyle} onSubmit={handleFormSubmit}>
-        {!formData && !data && !error && (
-          <label className={styles.labelStyle} htmlFor="userdata-input">
-            <strong>Type a formData to search for repositories!</strong>
-          </label>
-        )}
+        <label
+          data-testid="label-text"
+          className={styles.labelStyle}
+          htmlFor="userdata-input"
+        >
+          <strong>Type a username to search for repositories!</strong>
+        </label>
+
         <input
           id="userdata-input"
           className={styles.inputStyle}
